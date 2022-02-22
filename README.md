@@ -1,4 +1,4 @@
-<h1 align="center">Real Time Chat Socket IO</h1>
+<h1 align="center">Real Time Chat Socket Io</h1>
 
 [![Express Logo](https://i.cloudup.com/zfY6lL7eFa-3000x3000.png)](http://expressjs.com/)
 
