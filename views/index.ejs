@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <title>Connectis Room</title>
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+    <!-- Image and text -->
+    <nav class="navbar navbar-light bg-light">
+        <div class="col-md-12 text-center">
+            <a class="navbar-brand" href="#">
+                CONNECTIS ROOM
+            </a>
+        </div>
+    </nav>
+    <main class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="bg-light p-5 rounded mt-3">
+                    <form id="form">
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input type="text" class="form-control" id="username" readonly required></input>
+                        </div>
+                        <div class="form-group">
+                            <label>Message</label>
+                            <textarea class="form-control" id="message" rows="3" required></textarea>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-info">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="bg-light p-5 rounded mt-3 mb-3">
+                    <div id="list-message">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.socket.io/4.4.1/socket.io.min.js"
+        integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H" crossorigin="anonymous">
+    </script>
+
+    <!-- show alert -->
+    <script>
+        let text;
+        let person = prompt("Please enter your name:");
+        if (person == null || person == "") {
+            text = "Guest";
+        } else {
+            text = person;
+        }
+        document.getElementById("username").value = text;
+    </script>
+
+    <script>
+        let listMassage = '';
+
+        var socket = io();
+
+        // on message from client
+        var form = document.getElementById('form');
+        var message = document.getElementById('message');
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            if (message.value && username.value) {
+
+                socket.emit('chat message', {
+                    username: username.value,
+                    message: message.value
+                });
+
+                message.value = '';
+            }
+        });
+
+        // on message from server
+        socket.on('chat message', function (msg) {
+            console.log(msg);
+            listMassage += '<div class="card mt-1 mb-1 overflow-auto"><div class="card-body"><blockquote class="blockquote mb-0"><p>'+msg.message+'</p><footer class="blockquote-footer">'+msg.username+' at <cite title="Source Title">'+msg.timestamp+'</cite></footer></blockquote></div></div>'
+            document.getElementById("list-message").innerHTML = listMassage;
+        });
+    </script>
+</body>
+
+</html>
