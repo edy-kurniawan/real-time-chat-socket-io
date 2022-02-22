@@ -4,12 +4,6 @@
 
   Fast, unopinionated, minimalist web framework for [node](http://nodejs.org).
 
-  [![NPM Version][npm-image]][npm-url]
-  [![NPM Downloads][downloads-image]][downloads-url]
-  [![Linux Build][ci-image]][ci-url]
-  [![Windows Build][appveyor-image]][appveyor-url]
-  [![Test Coverage][coveralls-image]][coveralls-url]
-
 ## Installation
 
 ```bash
@@ -23,4 +17,4 @@ $ node app.js
 ```
 
 ## Screenshot
-<img align="center" src="/acreenshot/app.png" />
+<img align="center" src="/screenshot/app.png" />
